@@ -6,11 +6,16 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 23:36:20 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/07 23:53:42 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/08 02:05:01 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philosophers.h"
+
+void	*func(void	*arg)
+{
+	;
+}
 
 int		get_arg(char *str)
 {
@@ -38,4 +43,19 @@ void	init_settings(char **argv, t_settings *tmp)
 		tmp->column_eat_for_die = get_arg(argv[4]);
 	else
 		tmp->column_eat_for_die = -1;
+}
+
+void	init_philo(t_settings *settings, t_pthread_philo *philo)
+{
+	int	i;
+
+	philo->number = settings->number;
+	philo->pd = (pthread_t *)malloc(sizeof(pthread_t) * philo->number);
+	i = -1;
+	while (++i < philo->number)
+	{
+		if (pthread_create(&((philo->pd)[i]), NULL, func, (void *)NULL))//func
+			error("Error: pthread_creale error\n");
+	}
+
 }
