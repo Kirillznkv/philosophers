@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 23:36:20 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/08 06:21:08 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/08 06:56:15 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	*func(void	*arg)
 {
 	arg = NULL;
+	printf("Hello!\n");
 	return (arg);
 }
 
@@ -46,17 +47,20 @@ void	init_settings(char **argv, t_settings *tmp)
 		tmp->column_eat_for_die = -1;
 }
 
-void	init_philo(t_settings *settings, t_pthread_philo *philo)
+void	init_philo(t_settings *settings, t_pthread_philo **philo)
 {
 	int	i;
 
-	philo->number = settings->number;
-	philo->pd = (pthread_t *)malloc(sizeof(pthread_t) * philo->number);
+	*philo = (t_pthread_philo *)malloc(sizeof(t_pthread_philo) * settings->number);
 	i = -1;
-	while (++i < philo->number)
+	while (++i < settings->number)
 	{
-		if (pthread_create(&((philo->pd)[i]), NULL, func, (void *)NULL))//func
+		(*philo)[i].data.number = settings->number;
+		(*philo)[i].data.column_eat_for_die = settings->column_eat_for_die;
+		(*philo)[i].data.time_die = settings->time_die;
+		(*philo)[i].data.time_eat = settings->time_eat;
+		(*philo)[i].data.time_sleep = settings->time_sleep;
+		if (pthread_create(&((*philo)[i].pd), NULL, func, (void *)NULL))//func
 			error("Error: pthread_creale error\n");
 	}
-
 }
