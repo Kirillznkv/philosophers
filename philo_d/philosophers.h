@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:26:21 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/08 08:17:41 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/08 08:41:23 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "unistd.h"
 # include "stdlib.h"
 # include "pthread.h"
+# include "sys/time.h"
 
 typedef struct s_settings
 {

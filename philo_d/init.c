@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 08:15:38 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/08 08:29:47 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/08 08:45:53 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,13 @@ void	init_philo(t_settings *settings, t_pthread_philo **p_philo, pthread_mutex_t
 
 void	init_mutex(pthread_mutex_t **mutex, int number)
 {
+	int	i;
+
 	*mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * number);
+	i = -1;
+	while (++i < number)
+	{
+		printf("#\n");
+		pthread_mutex_init(mutex[i], NULL);
+	}
 }
