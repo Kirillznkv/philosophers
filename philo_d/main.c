@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:23:45 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/08 06:56:40 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/08 07:08:47 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ int	main(int argc, char **argv)
 {
 	t_settings		settings;
 	t_pthread_philo	*philo;
+	pthread_mutex_t	*mutex;
 
 	if (argc != 5 && argc != 6)
 		error("Error: argument error\n");
 	init_settings(&argv[1], &settings);
-	init_philo(&settings, &philo);
+	init_mutex(&mutex, settings.number);
+	init_philo(&settings, &philo, mutex);
 	wait_philos(philo);
 	philo_is_die(philo);
 	return (0);

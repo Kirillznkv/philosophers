@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 23:36:20 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/08 06:56:15 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/08 07:18:07 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,21 @@ void	init_settings(char **argv, t_settings *tmp)
 		tmp->column_eat_for_die = -1;
 }
 
-void	init_philo(t_settings *settings, t_pthread_philo **philo)
+void	setting_mutex(t_pthread_philo *philo, pthread_mutex_t *mutex, int i)
+{
+	if (i != 0)
+	{
+		philo->left = &(mutex[i - 1]);
+		philo->right = &(mutex[i]);
+	}
+	else
+	{
+		philo->left = &(mutex[philo->data.number - 1]);
+		philo->right = &(mutex[i]);
+	}
+}
+
+void	init_philo(t_settings *settings, t_pthread_philo **philo, pthread_mutex_t *mutex)
 {
 	int	i;
 
@@ -60,7 +74,13 @@ void	init_philo(t_settings *settings, t_pthread_philo **philo)
 		(*philo)[i].data.time_die = settings->time_die;
 		(*philo)[i].data.time_eat = settings->time_eat;
 		(*philo)[i].data.time_sleep = settings->time_sleep;
+		setting_mutex(philo[i], mutex, i);
 		if (pthread_create(&((*philo)[i].pd), NULL, func, (void *)NULL))//func
 			error("Error: pthread_creale error\n");
 	}
+}
+
+void	init_mutex(pthread_mutex_t **mutex, int number)
+{
+	*mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * number);
 }
