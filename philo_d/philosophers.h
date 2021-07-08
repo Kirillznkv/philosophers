@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:26:21 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/08 07:13:43 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/08 08:17:41 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 typedef struct s_settings
 {
+	int				i;
 	int				number;
 	int				time_die;
 	int				time_eat;
@@ -39,6 +40,7 @@ int		ft_strlen(char *str);
 int		error(char *str);
 /*--------------------------------Philo_Utils---------------------------------*/
 void	*func(void	*arg);
+/*--------------------------------Init----------------------------------------*/
 int		get_arg(char *str);
 void	init_settings(char **argv, t_settings *tmp);
 void	setting_mutex(t_pthread_philo *philo, pthread_mutex_t *mutex, int i);
