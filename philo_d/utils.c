@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:37:24 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/07 23:59:58 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/08 06:19:59 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,10 @@ int	ft_atoi(char *str, char **flag)
 		i++;
 	if (str[i] == '+')
 		i++;
-	else if (str[i] == '-')
-	{
+	else if (str[i] == '-' && ++i)
 		m++;
-		i++;
-	}
+	if (str[i] < '0' || str[i] > '9')
+		error("Error: its not a valid arguments\n");
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 		res = res * 10 + str[i++] - '0';
 	*flag = &str[i];

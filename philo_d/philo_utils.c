@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 23:36:20 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/08 02:05:01 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/08 06:21:08 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	*func(void	*arg)
 {
-	;
+	arg = NULL;
+	return (arg);
 }
 
 int		get_arg(char *str)
