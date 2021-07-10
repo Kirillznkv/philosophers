@@ -6,11 +6,20 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:37:24 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/08 08:06:22 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/10 14:42:47 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philosophers.h"
+
+int	free_all(pthread_mutex_t *mutex, t_pthread_philo *philo)
+{
+	if (mutex)
+		free(mutex);
+	if (philo)
+		free(philo);
+	return (1);
+}
 
 int	ft_atoi(char *str, char **flag)
 {
@@ -52,5 +61,5 @@ int	ft_strlen(char *str)
 int	error(char *str)
 {
 	write(1, str, ft_strlen(str));
-	exit(1);
+	return (1);
 }

@@ -6,13 +6,13 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 08:15:38 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/08 10:42:42 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/10 15:20:26 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philosophers.h"
 
-int		get_arg(char *str)
+int		get_arg(char *str, int *flag)
 {
 	char	*test;
 	int		i;
@@ -24,20 +24,26 @@ int		get_arg(char *str)
 	while (test && test[i] == ' ')
 		i++;
 	if (res <= 0 || (test && test[i] != '\0'))
-		error("Error: its not a valid arguments\n");
+		*flag = 1;
 	return (res);
 }
 
-void	init_settings(char **argv, t_settings *tmp)
+int	init_settings(char **argv, t_settings *tmp)
 {
-	tmp->number = get_arg(argv[0]);
-	tmp->time_die = get_arg(argv[1]);
-	tmp->time_eat = get_arg(argv[2]);
-	tmp->time_sleep = get_arg(argv[3]);
+	int	flag;
+
+	flag = 0;
+	tmp->number = get_arg(argv[0], &flag);
+	tmp->time_die = get_arg(argv[1], &flag);
+	tmp->time_eat = get_arg(argv[2], &flag);
+	tmp->time_sleep = get_arg(argv[3], &flag);
 	if (argv[4])
-		tmp->column_eat_for_die = get_arg(argv[4]);
+		tmp->column_eat_for_die = get_arg(argv[4], &flag);
 	else
 		tmp->column_eat_for_die = -1;
+	if (flag)
+		return (error("Error: its not a valid arguments\n"));
+	return (0);
 }
 
 void	setting_mutex(t_pthread_philo *philo, pthread_mutex_t *mutex, int i)
@@ -49,36 +55,43 @@ void	setting_mutex(t_pthread_philo *philo, pthread_mutex_t *mutex, int i)
 	philo->right = &(mutex[i]);
 }
 
-void	init_philo(t_settings *settings, t_pthread_philo **p_philo, pthread_mutex_t *mutex)
+int	go_treads(t_settings *settings, t_pthread_philo **p_philo, pthread_mutex_t *mutex)
 {
 	int	i;
 	t_pthread_philo *philo;
 
 	*p_philo = (t_pthread_philo *)malloc(sizeof(t_pthread_philo) * settings->number);
 	philo = *p_philo;
+	if (!philo)
+		return (error("Error: malloc error\n"));
 	i = -1;
 	while (++i < settings->number)
 	{
+		//philo[i].col_eat = 0;
 		philo[i].i = i;
 		philo[i].data = settings;
 		//last_eat;
 		setting_mutex(&(philo[i]), mutex, i);
-		if (pthread_create(&(philo[i].pd), NULL, func, (void *)&(philo[i])))//func
-			error("Error: pthread_creale error\n");
-		// printf("############ %d\n", i);
+		if (pthread_create(&(philo[i].pd), NULL, life, (void *)&(philo[i])))//func
+			return (error("Error: pthread_creale error\n"));
 	}
+	return (0);
 }
 
-void	init_mutex(pthread_mutex_t **p_mutex, int number)
+int	init_mutex(pthread_mutex_t **p_mutex, int number)
 {
 	int	i;
 	pthread_mutex_t *mutex;
 
 	mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * number);
+	if (!mutex)
+		return (error("Error: malloc error\n"));
 	*p_mutex = mutex;
 	i = -1;
 	while (++i < number)
 	{
 		pthread_mutex_init(&(mutex[i]), NULL);
+		// pthread_mutex_unlock(&(mutex[i]));
 	}
+	return (0);
 }
