@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:26:21 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/10 15:18:36 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/10 15:31:12 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,16 @@ typedef struct s_settings
 } 							t_settings;
 typedef struct s_pthread_philo
 {
-	//int						col_eat;////
 	int						i;
 	__darwin_suseconds_t	last_eat;
+	__darwin_suseconds_t	limit;
 	pthread_t				pd;
 	struct s_settings		*data;
 	pthread_mutex_t			*left;
 	pthread_mutex_t			*right;
 }							t_pthread_philo;
 /*--------------------------------Utils---------------------------------------*/
+int		my_sleep(int sleep);
 int		free_all(pthread_mutex_t *mutex, t_pthread_philo *philo);
 int		ft_atoi(char *str, char **flag);
 int		ft_strlen(char *str);

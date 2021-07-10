@@ -6,11 +6,25 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:37:24 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/10 14:42:47 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/10 16:33:19 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philosophers.h"
+
+int	my_sleep(int sleep)
+{
+	struct timeval	time;
+	struct timeval	time_now;
+
+	gettimeofday(&time, NULL);
+	gettimeofday(&time_now, NULL);
+	while (time.tv_usec / 1000 + sleep > time_now.tv_usec / 1000)
+	{
+		gettimeofday(&time_now, NULL);
+	}
+	return (1);
+}
 
 int	free_all(pthread_mutex_t *mutex, t_pthread_philo *philo)
 {
