@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 08:15:38 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/08 08:45:53 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/08 10:42:42 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	setting_mutex(t_pthread_philo *philo, pthread_mutex_t *mutex, int i)
 	if (i != 0)
 		philo->left = &(mutex[i - 1]);
 	else
-		philo->left = &(mutex[philo->data.number - 1]);
+		philo->left = &(mutex[philo->data->number - 1]);
 	philo->right = &(mutex[i]);
 }
 
@@ -59,28 +59,26 @@ void	init_philo(t_settings *settings, t_pthread_philo **p_philo, pthread_mutex_t
 	i = -1;
 	while (++i < settings->number)
 	{
-		philo[i].data.i = i;
-		philo[i].data.number = settings->number;
-		philo[i].data.column_eat_for_die = settings->column_eat_for_die;
-		philo[i].data.time_die = settings->time_die;
-		philo[i].data.time_eat = settings->time_eat;
-		philo[i].data.time_sleep = settings->time_sleep;
+		philo[i].i = i;
+		philo[i].data = settings;
+		//last_eat;
 		setting_mutex(&(philo[i]), mutex, i);
 		if (pthread_create(&(philo[i].pd), NULL, func, (void *)&(philo[i])))//func
 			error("Error: pthread_creale error\n");
-		printf("%d\n", i);
+		// printf("############ %d\n", i);
 	}
 }
 
-void	init_mutex(pthread_mutex_t **mutex, int number)
+void	init_mutex(pthread_mutex_t **p_mutex, int number)
 {
 	int	i;
+	pthread_mutex_t *mutex;
 
-	*mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * number);
+	mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * number);
+	*p_mutex = mutex;
 	i = -1;
 	while (++i < number)
 	{
-		printf("#\n");
-		pthread_mutex_init(mutex[i], NULL);
+		pthread_mutex_init(&(mutex[i]), NULL);
 	}
 }
