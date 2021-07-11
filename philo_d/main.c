@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:23:45 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/11 17:51:33 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/11 20:40:11 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@ int	main(int argc, char **argv)//Убрать exit
 	t_settings		settings;
 	t_pthread_philo	*philo;
 	pthread_mutex_t	*mutex;
-	//struct timeval	time;
 
 	if (argc != 5 && argc != 6)
 		return (error("Error: argument error\n"));
-	//gettimeofday(&time, NULL);
 	if (init_settings(&argv[1], &settings))
 		return (1);
 	if (init_mutex(&mutex, settings.number))

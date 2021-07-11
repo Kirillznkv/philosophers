@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:37:24 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/10 16:33:19 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/11 20:43:34 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ int	my_sleep(int sleep)
 
 	gettimeofday(&time, NULL);
 	gettimeofday(&time_now, NULL);
-	while (time.tv_usec / 1000 + sleep > time_now.tv_usec / 1000)
+	while (time.tv_sec * 1000 + time.tv_usec / 1000 + sleep > time.tv_sec * 1000 + time.tv_usec / 1000)
 	{
+		usleep(10);
 		gettimeofday(&time_now, NULL);
 	}
 	return (1);

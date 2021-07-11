@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 08:15:38 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/11 17:53:11 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/11 20:44:37 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	*is_die(void	*p_philo)
 		while (++i < philo->data->number)
 		{
 			gettimeofday(&time, NULL);
-			if (time.tv_usec / 1000 >= philo[i].limit)
+			if (time.tv_sec * 1000 + time.tv_usec / 1000 / 1000 >= philo[i].limit)
 			{
-				printf("die : %d\n", time.tv_usec / 1000 - philo[i].limit);
+				printf("die : %ld\n", time.tv_sec * 1000 + time.tv_usec / 1000 - philo[i].limit);
 				return (NULL);
 			}
 		}
@@ -91,16 +91,15 @@ int	go_treads(t_settings *settings, t_pthread_philo **p_philo, pthread_mutex_t *
 	i = -1;
 	while (++i < settings->number)
 	{
-		//philo[i].col_eat = 0;
 		philo[i].i = i;
 		philo[i].data = settings;
-		//last_eat;
 		setting_mutex(&(philo[i]), mutex, i);
 		if (pthread_create(&(philo[i].pd), NULL, life, (void *)&(philo[i])))//func
-			return (error("Error: pthread_creale error\n"));
+			return (error("Error: pthread_create error\n"));
 	}
+	usleep(1);
 	if (pthread_create(&die, NULL, is_die, (void *)philo))//func
-		return (error("Error: pthread_creale error\n"));
+		return (error("Error: pthread_create error\n"));
 	pthread_join(die, NULL);
 	return (0);
 }
@@ -118,7 +117,6 @@ int	init_mutex(pthread_mutex_t **p_mutex, int number)
 	while (++i < number)
 	{
 		pthread_mutex_init(&(mutex[i]), NULL);
-		// pthread_mutex_unlock(&(mutex[i]));
 	}
 	return (0);
 }

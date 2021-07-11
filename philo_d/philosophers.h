@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:26:21 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/10 15:31:12 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/11 19:58:40 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef struct s_settings
 typedef struct s_pthread_philo
 {
 	int						i;
-	__darwin_suseconds_t	last_eat;
-	__darwin_suseconds_t	limit;
+	long int				last_eat;
+	long int				limit;
 	pthread_t				pd;
 	struct s_settings		*data;
 	pthread_mutex_t			*left;
