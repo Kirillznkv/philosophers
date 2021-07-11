@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 08:15:38 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/10 15:20:26 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/11 17:53:11 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,34 @@ void	setting_mutex(t_pthread_philo *philo, pthread_mutex_t *mutex, int i)
 	philo->right = &(mutex[i]);
 }
 
+void	*is_die(void	*p_philo)
+{
+	t_pthread_philo	*philo;
+	struct timeval	time;
+	int				i;
+
+	philo = (t_pthread_philo *)p_philo;
+	while (1)
+	{
+		i = -1;
+		while (++i < philo->data->number)
+		{
+			gettimeofday(&time, NULL);
+			if (time.tv_usec / 1000 >= philo[i].limit)
+			{
+				printf("die : %d\n", time.tv_usec / 1000 - philo[i].limit);
+				return (NULL);
+			}
+		}
+	}
+	return (NULL);
+}
+
 int	go_treads(t_settings *settings, t_pthread_philo **p_philo, pthread_mutex_t *mutex)
 {
-	int	i;
-	t_pthread_philo *philo;
+	int				i;
+	t_pthread_philo	*philo;
+	pthread_t		die;
 
 	*p_philo = (t_pthread_philo *)malloc(sizeof(t_pthread_philo) * settings->number);
 	philo = *p_philo;
@@ -75,6 +99,9 @@ int	go_treads(t_settings *settings, t_pthread_philo **p_philo, pthread_mutex_t *
 		if (pthread_create(&(philo[i].pd), NULL, life, (void *)&(philo[i])))//func
 			return (error("Error: pthread_creale error\n"));
 	}
+	if (pthread_create(&die, NULL, is_die, (void *)philo))//func
+		return (error("Error: pthread_creale error\n"));
+	pthread_join(die, NULL);
 	return (0);
 }
 

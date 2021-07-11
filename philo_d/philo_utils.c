@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 23:36:20 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/10 16:32:56 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/11 17:48:40 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	func_even(t_pthread_philo *philo)
 	// eat
 	printf("%d: eating\n", philo->i);
 	gettimeofday(&time, NULL);
-	if (time.tv_usec / 1000 >= philo->limit)
-	{
-		printf("die : %d\n", time.tv_usec / 1000 - philo->limit);
-		exit(1);
-	}
+	// if (time.tv_usec / 1000 >= philo->limit)
+	// {
+	// 	printf("die : %d\n", time.tv_usec / 1000 - philo->limit);
+	// 	exit(1);
+	// }
 	philo->limit = time.tv_usec / 1000 + philo->data->time_die;
 	usleep(philo->data->time_eat);
 	// fork
@@ -50,11 +50,11 @@ void	func_noeven(t_pthread_philo *philo)
 	// eat
 	printf("%d: eating\n", philo->i);
 	gettimeofday(&time, NULL);
-	if (time.tv_usec / 1000 >= philo->limit)
-	{
-		printf("die : %d\n", time.tv_usec / 1000 - philo->limit);
-		exit(1);
-	}
+	// if (time.tv_usec / 1000 >= philo->limit)
+	// {
+	// 	printf("die : %d\n", time.tv_usec / 1000 - philo->limit);
+	// 	exit(1);
+	// }
 	philo->limit = time.tv_usec / 1000 + philo->data->time_die;
 	usleep(philo->data->time_eat);
 	// fork
@@ -81,6 +81,5 @@ void	*life(void	*arg)
 		else
 			func_even(philo);
 	}
-	printf("WHY?\n");
 	return (NULL);
 }

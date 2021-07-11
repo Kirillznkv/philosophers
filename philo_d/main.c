@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:23:45 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/10 15:18:33 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/11 17:51:33 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	main(int argc, char **argv)//Убрать exit
 		return (1);
 	if (go_treads(&settings, &philo, mutex))
 		return (free_all(mutex, philo));
-	while (1)
-		;//printf("------>(%d) (%d) (%d) (%d)\n", philo->col_eat, philo[1].col_eat, philo[2].col_eat, philo[3].col_eat);
+	free_all(mutex, philo);
 	return (0);
 }
