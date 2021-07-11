@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:26:21 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/11 20:53:40 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/11 22:46:40 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,16 @@ typedef struct s_pthread_philo
 	pthread_mutex_t			*right;
 }							t_pthread_philo;
 /*--------------------------------Utils---------------------------------------*/
-/*--------------------------------Philo_Utils---------------------------------*/
+/*-------Base_Utils----------*/
+int				error(char *str);
+int				ft_strlen(char *str);
+int				ft_atoi(char *str, char **flag);
+/*-------Philo_Utils---------*/
+int				get_arg(char *str, int *flag);
 /*--------------------------------Init----------------------------------------*/
+int				init(char **argv, t_pthread_philo **p_philo);
+t_settings		*init_settings(char **argv);
+pthread_mutex_t	*init_mutex(int number);
+/*--------------------------------Philo_Utils---------------------------------*/
 
 #endif

@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/11 20:52:12 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/11 22:30:27 by kshanti          ###   ########.fr       */
+/*   Created: 2021/07/11 22:28:04 by kshanti           #+#    #+#             */
+/*   Updated: 2021/07/11 22:28:37 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
+#include "../../includes/philosophers.h"
 
-int	main(int argc, char **argv)
+int		get_arg(char *str, int *flag)
 {
-	t_pthread_philo *philo;
+	char	*test;
+	int		i;
+	int		res;
 
-	philo = NULL;
-	if (argc != 5 && argc != 6)
-		return (error("Error: argument error\n"));
-	if (init(&(argv[1]), &philo))
-		return (all_free());//
-	return (0);
+	test = NULL;
+	res = ft_atoi(str, &test);
+	i = 0;
+	while (test && test[i] == ' ')
+		i++;
+	if (res <= 0 || (test && test[i] != '\0'))
+		*flag = 1;
+	return (res);
 }
