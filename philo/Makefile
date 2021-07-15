@@ -3,19 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+         #
+#    By: user <user@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/07 23:54:19 by kshanti           #+#    #+#              #
-#    Updated: 2021/07/08 08:16:32 by kshanti          ###   ########.fr        #
+#    Updated: 2021/07/15 03:29:15 by user             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-HEAD = ./philosophers.h
-SRCS=./philo_d/
+HEAD = ./includes/philosophers.h
+SRCS=./srcs/
+UTILS=./srcs/utils/
 CFLAGS = -Wall -Wextra -Werror
-C_FILE = $(SRCS)main.c $(SRCS)philo_utils.c $(SRCS)utils.c $(SRCS)init.c
+C_FILE =	$(SRCS)main.c $(SRCS)init.c $(SRCS)treads.c \
+			$(UTILS)base_utils.c $(UTILS)philo_utils.c
 O_FILE = $(C_FILE:.c=.o)
 
 all:

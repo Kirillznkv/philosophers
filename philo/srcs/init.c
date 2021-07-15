@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 22:30:55 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/11 22:46:46 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/15 03:42:00 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_settings	*init_settings(char **argv)
 	settings->time_die = get_arg(argv[1], &flag);
 	settings->time_eat = get_arg(argv[2], &flag);
 	settings->time_sleep = get_arg(argv[3], &flag);
+	settings->start_time = get_time();
 	if (argv[4])
 		settings->column_eat_for_die = get_arg(argv[4], &flag);
 	else
@@ -77,13 +78,13 @@ t_pthread_philo	*init_philo(t_settings *settings, pthread_mutex_t *mutex)
 		philo[i].i = i + 1;
 		philo[i].col_eat = 0;
 		philo[i].data = settings;
-		philo[i].left = mutex[i];
-		philo[i].right = mutex[(i + 1) % settings->number];
+		philo[i].left = &(mutex[i]);
+		philo[i].right = &(mutex[(i + 1) % settings->number]);
 	}
 	return (philo);
 }
 
-int	init(char **argv, t_pthread_philo **p_philo)//free settings у нулевого //free mutex у нулевого левая вилка
+int	init(char **argv, t_pthread_philo **p_philo)
 {
 	t_settings		*settings;
 	t_pthread_philo	*philo;

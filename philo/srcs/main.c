@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:52:12 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/11 22:30:27 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/15 04:59:30 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,9 @@ int	main(int argc, char **argv)
 		return (error("Error: argument error\n"));
 	if (init(&(argv[1]), &philo))
 		return (all_free(philo));
+	if (go_treads(philo))
+		return (all_free(philo));
+	while (1)
+		;
 	return (0);
 }
