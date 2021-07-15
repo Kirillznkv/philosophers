@@ -12,6 +12,15 @@
 
 #include "../../includes/philosophers.h"
 
+int	all_free(t_pthread_philo *philo)
+{
+	if (!philo)
+		return (1);
+	free(philo->left);
+	free(philo->data);
+	free(philo);
+}
+
 int		get_arg(char *str, int *flag)
 {
 	char	*test;

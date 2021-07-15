@@ -60,18 +60,44 @@ pthread_mutex_t	*init_mutex(int number)
 	return (mutex);
 }
 
+t_pthread_philo	*init_philo(t_settings *settings, pthread_mutex_t *mutex)
+{
+	int				i;
+	t_pthread_philo	*philo;
+
+	philo = (t_pthread_philo *)malloc(sizeof(t_pthread_philo) * settings->number);
+	if (!philo)
+	{
+		error("Error: malloc error\n");
+		return (NULL);
+	}
+	i = -1;
+	while (++i < settings->number)
+	{
+		philo[i].i = i + 1;
+		philo[i].col_eat = 0;
+		philo[i].data = settings;
+		philo[i].left = mutex[i];
+		philo[i].right = mutex[(i + 1) % settings->number];
+	}
+	return (philo);
+}
+
 int	init(char **argv, t_pthread_philo **p_philo)//free settings у нулевого //free mutex у нулевого левая вилка
 {
 	t_settings		*settings;
 	t_pthread_philo	*philo;
 	pthread_mutex_t	*mutex;
 
-	philo = *p_philo;
 	settings = init_settings(argv);
 	if (!settings)
 		return (1);
 	mutex = init_mutex(settings->number);
 	if (!mutex)
 		return (1);
+	philo = init_philo(settings, mutex);
+	if (!philo)
+		return (1);
+	*p_philo = philo;
 	return (0);
 }

@@ -43,11 +43,13 @@ int				error(char *str);
 int				ft_strlen(char *str);
 int				ft_atoi(char *str, char **flag);
 /*-------Philo_Utils---------*/
+int				all_free(t_pthread_philo *philo);
 int				get_arg(char *str, int *flag);
 /*--------------------------------Init----------------------------------------*/
 int				init(char **argv, t_pthread_philo **p_philo);
 t_settings		*init_settings(char **argv);
 pthread_mutex_t	*init_mutex(int number);
+t_pthread_philo	*init_philo(t_settings *settings, pthread_mutex_t *mutex);
 /*--------------------------------Philo_Utils---------------------------------*/
 
 #endif

@@ -20,6 +20,6 @@ int	main(int argc, char **argv)
 	if (argc != 5 && argc != 6)
 		return (error("Error: argument error\n"));
 	if (init(&(argv[1]), &philo))
-		return (all_free());//
+		return (all_free(philo));
 	return (0);
 }
