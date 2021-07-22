@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 23:51:07 by user              #+#    #+#             */
-/*   Updated: 2021/07/22 19:55:34 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/22 21:26:25 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void    eating(t_pthread_philo *philo)
 
     if (philo->i % 2)
     {
+        if (philo->data->number % 2)
+            usleep(100);
         pthread_mutex_lock(philo->right);
 		time = get_time() - philo->data->start_time;
         massage(WR_RIGHT_FORK_UP, time, philo->i, philo->data->is_die);

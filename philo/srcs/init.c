@@ -6,11 +6,25 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 22:30:55 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/22 19:23:53 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/22 22:04:19 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+
+static int	check_init_set(t_settings *settings)
+{
+	int	res;
+
+	res = 0;
+	if  (settings->number < 2 || settings->number > 200)
+		res++;
+	else if (settings->time_die < 60 || \
+			settings->time_eat < 60 || \
+			settings->time_sleep < 60)
+		res++;
+	return (res);
+}
 
 t_settings	*init_settings(char **argv)
 {
@@ -35,7 +49,7 @@ t_settings	*init_settings(char **argv)
 		settings->column_eat_for_die = get_arg(argv[4], &flag);
 	else
 		settings->column_eat_for_die = -1;
-	if (flag)
+	if (flag || check_init_set(settings))
 	{
 		free(settings);
 		error("Error: its not a valid arguments\n");
