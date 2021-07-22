@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:26:21 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/15 04:17:38 by user             ###   ########.fr       */
+/*   Updated: 2021/07/18 23:51:29 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define MAGENTA "\x1b[35m"
 # define CYAN "\x1b[36m"
 # define RESET "\x1b[0m"
+
+pthread_mutex_t getTime_mutex;
 
 typedef struct s_settings
 {
@@ -64,6 +66,7 @@ t_pthread_philo	*init_philo(t_settings *settings, pthread_mutex_t *mutex);
 /*--------------------------------Treads--------------------------------------*/
 void  		  	eating(t_pthread_philo *philo);
 void   			sleeping(t_pthread_philo *philo);
+void			thinking(t_pthread_philo *philo);
 void			*life(void	*arg);
 int 			go_treads(t_pthread_philo *philo);
 

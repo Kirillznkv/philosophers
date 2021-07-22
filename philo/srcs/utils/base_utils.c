@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   base_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 22:09:33 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/11 22:25:26 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/19 00:09:19 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	ft_atoi(char *str, char **flag)
 		error("Error: its not a valid arguments\n");
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 		res = res * 10 + str[i++] - '0';
-	*flag = &str[i];
+	if (flag)
+		*flag = &str[i];
 	if (m)
 		return (-res);
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:52:12 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/15 04:59:30 by user             ###   ########.fr       */
+/*   Updated: 2021/07/19 00:27:53 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@ int	main(int argc, char **argv)
 	if (go_treads(philo))
 		return (all_free(philo));
 	while (1)
+	{
+		//printf("---->(%d)(%d)\n", philo->col_eat, philo[1].col_eat);
+		// usleep(1000);
 		;
+	}
+
+	// long int time = get_time();
+	// my_sleep(20);
+	// printf("time = %ld\n", get_time() - time);
+
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 22:30:55 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/15 03:42:00 by user             ###   ########.fr       */
+/*   Updated: 2021/07/18 23:51:25 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,14 @@ pthread_mutex_t	*init_mutex(int number)
 	{
 		pthread_mutex_init(&(mutex[i]), NULL);
 	}
+	pthread_mutex_init(&getTime_mutex, NULL);
 	return (mutex);
 }
 
 t_pthread_philo	*init_philo(t_settings *settings, pthread_mutex_t *mutex)
 {
 	int				i;
+	long int		time;
 	t_pthread_philo	*philo;
 
 	philo = (t_pthread_philo *)malloc(sizeof(t_pthread_philo) * settings->number);
@@ -73,6 +75,7 @@ t_pthread_philo	*init_philo(t_settings *settings, pthread_mutex_t *mutex)
 		return (NULL);
 	}
 	i = -1;
+	time = get_time();
 	while (++i < settings->number)
 	{
 		philo[i].i = i + 1;
@@ -80,6 +83,8 @@ t_pthread_philo	*init_philo(t_settings *settings, pthread_mutex_t *mutex)
 		philo[i].data = settings;
 		philo[i].left = &(mutex[i]);
 		philo[i].right = &(mutex[(i + 1) % settings->number]);
+		philo[i].last_eat = time;//
+		philo[i].limit = time + philo->data->time_die;//
 	}
 	return (philo);
 }
