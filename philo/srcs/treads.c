@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 23:51:07 by user              #+#    #+#             */
-/*   Updated: 2021/07/22 19:08:35 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/22 19:55:34 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void    eating(t_pthread_philo *philo)
 		time = get_time() - philo->data->start_time;
         massage(WR_RIGHT_FORK_UP, time, philo->i, philo->data->is_die);
         pthread_mutex_lock(philo->left);
+		time = get_time() - philo->data->start_time;
         massage(WR_LEFT_FORK_UP, time, philo->i, philo->data->is_die);
     }
     else
@@ -30,6 +31,7 @@ void    eating(t_pthread_philo *philo)
 		time = get_time() - philo->data->start_time;
         massage(WR_LEFT_FORK_UP, time, philo->i, philo->data->is_die);
         pthread_mutex_lock(philo->right);
+		time = get_time() - philo->data->start_time;
         massage(WR_RIGHT_FORK_UP, time, philo->i, philo->data->is_die);
     }
 	massage(WR_EAT, time, philo->i, philo->data->is_die);
@@ -73,7 +75,6 @@ void	*life(void	*arg)
         sleeping(philo);
 		thinking(philo);
 	}
-	pthread_join(philo->p_check_die, NULL);
 	return (NULL);
 }
 
@@ -94,5 +95,7 @@ int go_treads(t_pthread_philo *philo)
 		if (pthread_create(&(pd[i]), NULL, life, (void *)&(philo[i])))
 			return (error("Error: pthread_create error\n"));
     }
+	pthread_join(*pd, NULL);
+	usleep(10);
     return (0);
 }

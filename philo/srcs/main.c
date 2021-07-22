@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:52:12 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/22 18:42:20 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/22 19:30:06 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,5 @@ int	main(int argc, char **argv)
 		return (all_free(philo));
 	if (go_treads(philo))
 		return (all_free(philo));
-	while (1) ;
 	return (0);
 }
