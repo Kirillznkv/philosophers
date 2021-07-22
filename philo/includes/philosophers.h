@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:26:21 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/18 23:51:29 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/22 19:23:12 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,37 +27,36 @@
 # define CYAN "\x1b[36m"
 # define RESET "\x1b[0m"
 
-pthread_mutex_t getTime_mutex;
+# define WR_LEFT_FORK_UP 1
+# define WR_RIGHT_FORK_UP 2
+# define WR_LEFT_FORK_DOWN 3
+# define WR_RIGHT_FORK_DOWN 4
+# define WR_EAT 5
+# define WR_SLEEP 6
+# define WR_THINK 7
+# define WR_DIE 13
 
 typedef struct s_settings
 {
 	int						number;
+	int						is_die;
 	int						time_die;
 	int						time_eat;
 	int						time_sleep;
 	int						column_eat_for_die;
 	long int				start_time;
+	pthread_mutex_t			m_die;
 } 							t_settings;
 typedef struct s_pthread_philo
 {
 	int						i;
 	int						col_eat;
-	long int				last_eat;
 	long int				limit;
+	pthread_t				p_check_die;
 	struct s_settings		*data;
 	pthread_mutex_t			*left;
 	pthread_mutex_t			*right;
 }							t_pthread_philo;
-/*--------------------------------Utils---------------------------------------*/
-/*-------Base_Utils----------*/
-int				error(char *str);
-int				ft_strlen(char *str);
-int				ft_atoi(char *str, char **flag);
-/*-------Philo_Utils---------*/
-long int		get_time();
-int				my_sleep(int sleep);
-int				all_free(t_pthread_philo *philo);
-int				get_arg(char *str, int *flag);
 /*--------------------------------Init----------------------------------------*/
 int				init(char **argv, t_pthread_philo **p_philo);
 t_settings		*init_settings(char **argv);
@@ -69,5 +68,19 @@ void   			sleeping(t_pthread_philo *philo);
 void			thinking(t_pthread_philo *philo);
 void			*life(void	*arg);
 int 			go_treads(t_pthread_philo *philo);
+/*--------------------------------Check_die-----------------------------------*/
+void			*check_die(void *arg);
+/*--------------------------------Utils---------------------------------------*/
+/*-------Base_Utils---------*/
+int				error(char *str);
+int				ft_strlen(char *str);
+int				ft_atoi(char *str, char **flag);
+/*-------Philo_Utils--------*/
+long int		get_time();
+int				my_sleep(int sleep);
+int				all_free(t_pthread_philo *philo);
+int				get_arg(char *str, int *flag);
+/*-------Massages-----------*/
+void			massage(int mas, long int time, int i, int status_die);
 
 #endif

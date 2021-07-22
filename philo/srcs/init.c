@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 22:30:55 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/18 23:51:25 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/22 19:23:53 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@ t_settings	*init_settings(char **argv)
 		return (NULL);
 	}
 	flag = 0;
+	settings->is_die = 0;
 	settings->number = get_arg(argv[0], &flag);
 	settings->time_die = get_arg(argv[1], &flag);
 	settings->time_eat = get_arg(argv[2], &flag);
 	settings->time_sleep = get_arg(argv[3], &flag);
 	settings->start_time = get_time();
+	pthread_mutex_init(&(settings->m_die), NULL);
 	if (argv[4])
 		settings->column_eat_for_die = get_arg(argv[4], &flag);
 	else
@@ -58,7 +60,6 @@ pthread_mutex_t	*init_mutex(int number)
 	{
 		pthread_mutex_init(&(mutex[i]), NULL);
 	}
-	pthread_mutex_init(&getTime_mutex, NULL);
 	return (mutex);
 }
 
@@ -83,8 +84,7 @@ t_pthread_philo	*init_philo(t_settings *settings, pthread_mutex_t *mutex)
 		philo[i].data = settings;
 		philo[i].left = &(mutex[i]);
 		philo[i].right = &(mutex[(i + 1) % settings->number]);
-		philo[i].last_eat = time;//
-		philo[i].limit = time + philo->data->time_die;//
+		philo[i].limit = time + philo->data->time_die;
 	}
 	return (philo);
 }

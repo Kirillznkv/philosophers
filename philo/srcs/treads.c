@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 23:51:07 by user              #+#    #+#             */
-/*   Updated: 2021/07/19 00:34:49 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/22 19:08:35 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,45 +20,45 @@ void    eating(t_pthread_philo *philo)
     {
         pthread_mutex_lock(philo->right);
 		time = get_time() - philo->data->start_time;
-        printf(YELLOW"%4ld: "RESET"%d "GREEN"philo has taken a right fork\n"RESET, time, philo->i);
+        massage(WR_RIGHT_FORK_UP, time, philo->i, philo->data->is_die);
         pthread_mutex_lock(philo->left);
-        printf(YELLOW"%4ld: "RESET"%d "GREEN"philo has taken a left fork\n"RESET, time, philo->i);
+        massage(WR_LEFT_FORK_UP, time, philo->i, philo->data->is_die);
     }
     else
     {
         pthread_mutex_lock(philo->left);
 		time = get_time() - philo->data->start_time;
-        printf(YELLOW"%4ld: "RESET"%d "GREEN"philo has taken a left fork\n", time, philo->i);
+        massage(WR_LEFT_FORK_UP, time, philo->i, philo->data->is_die);
         pthread_mutex_lock(philo->right);
-        printf(YELLOW"%4ld: "RESET"%d "GREEN"philo has taken a right fork\n", time, philo->i);
+        massage(WR_RIGHT_FORK_UP, time, philo->i, philo->data->is_die);
     }
-    printf(YELLOW"%4ld: "RESET"%d "CYAN"philo eating\n", time, philo->i);
-	// if (philo->data->column_eat_for_die > -1 && philo->data->column_eat_for_die != philo->col_eat)
-		(philo->col_eat)++;
+	massage(WR_EAT, time, philo->i, philo->data->is_die);
 	philo->limit = get_time() + philo->data->time_die;
+	if (philo->data->column_eat_for_die > -1 && philo->data->column_eat_for_die != philo->col_eat)
+		(philo->col_eat)++;
     my_sleep(philo->data->time_eat);
 	pthread_mutex_unlock(philo->right);
 	time = get_time() - philo->data->start_time;
-	printf(YELLOW"%4ld: "RESET"%d "RED"philo right fork down\n", time, philo->i);
+    massage(WR_RIGHT_FORK_DOWN, time, philo->i, philo->data->is_die);
 	pthread_mutex_unlock(philo->left);
-	printf(YELLOW"%4ld: "RESET"%d "RED"philo left fork down\n", time, philo->i);
+    massage(WR_LEFT_FORK_DOWN, time, philo->i, philo->data->is_die);
 }
 
 void    sleeping(t_pthread_philo *philo)
 {
-    long int    start_time;
+    long int    time;
 
-    start_time = philo->data->start_time;
-    printf(YELLOW"%4ld: "RESET"%d "BLUE"philo sleeping\n", get_time() - start_time, philo->i);
+    time =  get_time() - philo->data->start_time;
+    massage(WR_SLEEP, time, philo->i, philo->data->is_die);
     my_sleep(philo->data->time_sleep);
 }
 
 void	thinking(t_pthread_philo *philo)
 {
-    long int    start_time;
+    long int    time;
 
-    start_time = philo->data->start_time;
-    printf(YELLOW"%4ld: "RESET"%d "MAGENTA"philo thinking\n", get_time() - start_time, philo->i);
+    time = get_time() - philo->data->start_time;
+    massage(WR_THINK, time, philo->i, philo->data->is_die);
 }
 
 void	*life(void	*arg)
@@ -66,19 +66,14 @@ void	*life(void	*arg)
 	t_pthread_philo	*philo;
 
 	philo = (t_pthread_philo *)arg;
-	// pthread_detach(philo->pd);
-	// philo->last_eat = get_time();
-	// philo->limit = philo->last_eat + philo->data->time_die;
-	while (1)
+	pthread_create(&(philo->p_check_die), NULL, check_die, (void *)philo);
+	while (!(philo->data->is_die))
 	{
-		// if (philo->i == 1)
-		// {
 		eating(philo);
         sleeping(philo);
 		thinking(philo);
-		// }
-        // thinking(philo);
 	}
+	pthread_join(philo->p_check_die, NULL);
 	return (NULL);
 }
 
@@ -87,6 +82,7 @@ int go_treads(t_pthread_philo *philo)
     int         i;
     int         number;
     pthread_t   *pd;
+	pthread_t	p_check_die;
 
     number = philo->data->number;
     pd = (pthread_t *)malloc(sizeof(pthread_t) * number);
@@ -95,7 +91,7 @@ int go_treads(t_pthread_philo *philo)
     i = -1;
     while (++i < number)
     {
-		if (pthread_create(&(pd[i]), NULL, life, (void *)&(philo[i])))//func
+		if (pthread_create(&(pd[i]), NULL, life, (void *)&(philo[i])))
 			return (error("Error: pthread_create error\n"));
     }
     return (0);

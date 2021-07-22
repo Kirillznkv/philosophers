@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_die.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/11 20:52:12 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/22 18:42:20 by kshanti          ###   ########.fr       */
+/*   Created: 2021/07/22 18:00:17 by kshanti           #+#    #+#             */
+/*   Updated: 2021/07/22 19:25:22 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-int	main(int argc, char **argv)
+void	*check_die(void *arg)
 {
-	t_pthread_philo *philo;
+	t_pthread_philo	*philo;
 
-	philo = NULL;
-	if (argc != 5 && argc != 6)
-		return (error("Error: argument error\n"));
-	if (init(&(argv[1]), &philo))
-		return (all_free(philo));
-	if (go_treads(philo))
-		return (all_free(philo));
-	while (1) ;
-	return (0);
+	philo = (t_pthread_philo *)arg;
+	while (1)
+	{
+		pthread_mutex_lock(&(philo->data->m_die));
+		if (philo->data->is_die == 0 && philo->limit <= get_time())
+		{
+			philo->data->is_die = philo->i;
+			massage(WR_DIE, get_time() - philo->data->start_time, philo->i, 0);
+			return (NULL);
+		}
+		pthread_mutex_unlock(&(philo->data->m_die));
+	}
+	return (NULL);
 }
