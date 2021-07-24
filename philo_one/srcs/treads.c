@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 23:51:07 by user              #+#    #+#             */
-/*   Updated: 2021/07/22 21:26:25 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/24 16:50:36 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	*life(void	*arg)
 	while (!(philo->data->is_die))
 	{
 		eating(philo);
+        if (philo->data->column_eat_for_die != -1 && philo->data->column_eat_for_die == philo->col_eat)
+            break ;
         sleeping(philo);
 		thinking(philo);
 	}
@@ -97,7 +99,8 @@ int go_treads(t_pthread_philo *philo)
 		if (pthread_create(&(pd[i]), NULL, life, (void *)&(philo[i])))
 			return (error("Error: pthread_create error\n"));
     }
-	pthread_join(*pd, NULL);
-	usleep(10);
+    i = -1;
+    while (++i < number)
+	    pthread_join(pd[i], NULL);
     return (0);
 }

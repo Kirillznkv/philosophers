@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 22:30:55 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/22 22:04:19 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/24 16:51:46 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_settings	*init_settings(char **argv)
 	settings->time_sleep = get_arg(argv[3], &flag);
 	settings->start_time = get_time();
 	pthread_mutex_init(&(settings->m_die), NULL);
+	pthread_mutex_init(&m_massage, NULL);
 	if (argv[4])
 		settings->column_eat_for_die = get_arg(argv[4], &flag);
 	else

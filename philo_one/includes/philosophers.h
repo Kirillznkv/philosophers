@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:26:21 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/22 19:23:12 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/24 16:52:20 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define WR_SLEEP 6
 # define WR_THINK 7
 # define WR_DIE 13
+
+pthread_mutex_t			m_massage;
 
 typedef struct s_settings
 {
