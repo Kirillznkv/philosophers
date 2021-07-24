@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 23:51:07 by user              #+#    #+#             */
-/*   Updated: 2021/07/24 16:50:36 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/24 18:54:20 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ int go_treads(t_pthread_philo *philo)
 		if (pthread_create(&(pd[i]), NULL, life, (void *)&(philo[i])))
 			return (error("Error: pthread_create error\n"));
     }
-    i = -1;
-    while (++i < number)
-	    pthread_join(pd[i], NULL);
+    while (philo->data->is_die == 0)
+        usleep(10);
+	pthread_join(pd[philo->data->is_die - 1], NULL);
     return (0);
 }
