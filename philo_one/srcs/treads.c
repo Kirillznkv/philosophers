@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 23:51:07 by user              #+#    #+#             */
-/*   Updated: 2021/07/24 18:54:20 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/24 19:30:08 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void    eating(t_pthread_philo *philo)
     if (philo->i % 2)
     {
         if (philo->data->number % 2)
-            usleep(100);
+            usleep(philo->data->time_eat / 2);
         pthread_mutex_lock(philo->right);
 		time = get_time() - philo->data->start_time;
         massage(WR_RIGHT_FORK_UP, time, philo->i, philo->data->is_die);
@@ -74,7 +74,7 @@ void	*life(void	*arg)
 	while (!(philo->data->is_die))
 	{
 		eating(philo);
-        if (philo->data->column_eat_for_die != -1 && philo->data->column_eat_for_die == philo->col_eat)
+        if (!(is_need_eat(philo)))
             break ;
         sleeping(philo);
 		thinking(philo);
@@ -99,8 +99,9 @@ int go_treads(t_pthread_philo *philo)
 		if (pthread_create(&(pd[i]), NULL, life, (void *)&(philo[i])))
 			return (error("Error: pthread_create error\n"));
     }
-    while (philo->data->is_die == 0)
-        usleep(10);
-	pthread_join(pd[philo->data->is_die - 1], NULL);
+    if (is_need_eat(philo) == 1)
+        wait_die(pd, philo);
+    else
+        wait_eat(pd, philo->data->number);
     return (0);
 }

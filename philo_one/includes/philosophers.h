@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:26:21 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/24 16:52:20 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/24 19:43:29 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,14 @@ int				error(char *str);
 int				ft_strlen(char *str);
 int				ft_atoi(char *str, char **flag);
 /*-------Philo_Utils--------*/
+int				is_need_eat(t_pthread_philo *philo);
 long int		get_time();
 int				my_sleep(int sleep);
 int				all_free(t_pthread_philo *philo);
 int				get_arg(char *str, int *flag);
+/*-------Wait_tread---------*/
+void   			wait_eat(pthread_t *pd, int number);
+void   			wait_die(pthread_t *pd, t_pthread_philo *philo);
 /*-------Massages-----------*/
 void			massage(int mas, long int time, int i, int status_die);
 

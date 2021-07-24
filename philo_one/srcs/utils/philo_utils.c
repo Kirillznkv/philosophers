@@ -6,11 +6,28 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 22:28:04 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/22 17:58:29 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/24 19:16:14 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philosophers.h"
+
+int	is_need_eat(t_pthread_philo *philo)
+{
+	int	res;
+	int	eat_stat;
+
+	if (!philo)
+		return (-1);
+	eat_stat = philo->data->column_eat_for_die;
+	if (eat_stat == -1)
+		res = 1;
+	else if (eat_stat != philo->col_eat)
+		res = 2;
+	else
+		res = 0;
+	return (res);
+}
 
 long int	get_time()
 {

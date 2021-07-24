@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 18:00:17 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/24 16:50:45 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/24 19:16:56 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*check_die(void *arg)
 	while (1)
 	{
 		pthread_mutex_lock(&(philo->data->m_die));
-		if (philo->data->is_die == 0 && philo->limit <= get_time())
+		if (philo->data->is_die == 0 && philo->limit <= get_time() && is_need_eat(philo))
 		{
 			philo->data->is_die = philo->i;
 			massage(WR_DIE, get_time() - philo->data->start_time, philo->i, 0);
