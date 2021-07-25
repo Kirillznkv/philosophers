@@ -34,7 +34,7 @@ long int	get_time()
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	return ((long int)time.tv_sec * 1000 + (long int)time.tv_usec / 1000);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
 int	my_sleep(int sleep)
@@ -43,9 +43,7 @@ int	my_sleep(int sleep)
 
 	time = get_time();
 	while (get_time() - time < sleep)
-	{
-		usleep(10);
-	}
+		usleep(100);
 	return (1);
 }
 

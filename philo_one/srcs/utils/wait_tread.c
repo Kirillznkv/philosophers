@@ -15,7 +15,7 @@
 void    wait_die(pthread_t *pd, t_pthread_philo *philo)
 {
     while (philo->data->is_die == 0)
-        usleep(10);
+        ;
 }
 
 void    wait_eat(pthread_t *pd, int number)

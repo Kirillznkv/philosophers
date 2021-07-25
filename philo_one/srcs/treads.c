@@ -19,7 +19,7 @@ void    eating(t_pthread_philo *philo)
     if (philo->i % 2)
     {
         if (philo->data->number % 2)
-            usleep(philo->data->time_eat / 2);
+            my_sleep(philo->data->time_eat / 2);
         pthread_mutex_lock(philo->right);
 		time = get_time() - philo->data->start_time;
         massage(WR_RIGHT_FORK_UP, time, philo->i, philo->data->is_die);
@@ -29,6 +29,7 @@ void    eating(t_pthread_philo *philo)
     }
     else
     {
+        usleep(1);
         pthread_mutex_lock(philo->left);
 		time = get_time() - philo->data->start_time;
         massage(WR_LEFT_FORK_UP, time, philo->i, philo->data->is_die);

@@ -72,9 +72,7 @@ pthread_mutex_t	*init_mutex(int number)
 	}
 	i = -1;
 	while (++i < number)
-	{
 		pthread_mutex_init(&(mutex[i]), NULL);
-	}
 	return (mutex);
 }
 
