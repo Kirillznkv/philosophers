@@ -6,23 +6,33 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 17:24:53 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/25 19:49:35 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/25 20:38:43 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philosophers.h"
 
-void	massage(int mas, long int time, int i, int status_die)
+void	left_fork_up(t_pthread_philo *philo)
 {
-	if (status_die)
-		return ;
+	pthread_mutex_lock(philo->left);
+	massage(WR_LEFT_FORK_UP, get_time() - philo->data->start_time, philo->i);
+}
+
+void	right_fork_up(t_pthread_philo *philo)
+{
+	pthread_mutex_lock(philo->right);
+	massage(WR_RIGHT_FORK_UP, get_time() - philo->data->start_time, philo->i);
+}
+
+void	massage(int mas, long int time, int i)
+{
 	pthread_mutex_lock(&g_m_massage);
 	if (mas == WR_LEFT_FORK_UP)
 		printf(YELLOW"%4ld: "RESET"%3d "GREEN"philo has taken a right fork\n" \
-																RESET, time, i);
+								RESET, time, i);
 	else if (mas == WR_RIGHT_FORK_UP)
 		printf(YELLOW"%4ld: "RESET"%3d "GREEN"philo has taken a left fork\n" \
-																RESET, time, i);
+								RESET, time, i);
 	else if (mas == WR_LEFT_FORK_DOWN)
 		printf(YELLOW"%4ld: "RESET"%3d "RED"philo left fork down\n", time, i);
 	else if (mas == WR_RIGHT_FORK_DOWN)

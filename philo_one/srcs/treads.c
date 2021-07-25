@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 23:51:07 by user              #+#    #+#             */
-/*   Updated: 2021/07/25 19:47:54 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/25 20:40:03 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,28 @@
 
 void	eating(t_pthread_philo *philo)
 {
-	long int	time;
-
 	if (philo->i % 2)
 	{
 		if (philo->data->number % 2)
 			my_sleep(philo->data->time_eat / 2);
-		pthread_mutex_lock(philo->right);
-		time = get_time() - philo->data->start_time;
-		massage(WR_RIGHT_FORK_UP, time, philo->i, philo->data->is_die);
-		pthread_mutex_lock(philo->left);
-		time = get_time() - philo->data->start_time;
-		massage(WR_LEFT_FORK_UP, time, philo->i, philo->data->is_die);
+		right_fork_up(philo);
+		left_fork_up(philo);
 	}
 	else
 	{
-		pthread_mutex_lock(philo->left);
-		time = get_time() - philo->data->start_time;
-		massage(WR_LEFT_FORK_UP, time, philo->i, philo->data->is_die);
-		pthread_mutex_lock(philo->right);
-		time = get_time() - philo->data->start_time;
-		massage(WR_RIGHT_FORK_UP, time, philo->i, philo->data->is_die);
+		left_fork_up(philo);
+		right_fork_up(philo);
 	}
-	massage(WR_EAT, time, philo->i, philo->data->is_die);
+	massage(WR_EAT, get_time() - philo->data->start_time, philo->i);
 	philo->limit = get_time() + philo->data->time_die;
 	if (philo->data->column_eat_for_die > -1 && \
 		philo->data->column_eat_for_die != philo->col_eat)
 		(philo->col_eat)++;
 	my_sleep(philo->data->time_eat);
 	pthread_mutex_unlock(philo->right);
-	time = get_time() - philo->data->start_time;
-	massage(WR_RIGHT_FORK_DOWN, time, philo->i, philo->data->is_die);
+	massage(WR_RIGHT_FORK_DOWN, get_time() - philo->data->start_time, philo->i);
 	pthread_mutex_unlock(philo->left);
-	massage(WR_LEFT_FORK_DOWN, time, philo->i, philo->data->is_die);
+	massage(WR_LEFT_FORK_DOWN, get_time() - philo->data->start_time, philo->i);
 }
 
 void	sleeping(t_pthread_philo *philo)
@@ -54,7 +43,7 @@ void	sleeping(t_pthread_philo *philo)
 	long int	time;
 
 	time = get_time() - philo->data->start_time;
-	massage(WR_SLEEP, time, philo->i, philo->data->is_die);
+	massage(WR_SLEEP, time, philo->i);
 	my_sleep(philo->data->time_sleep);
 }
 
@@ -63,7 +52,7 @@ void	thinking(t_pthread_philo *philo)
 	long int	time;
 
 	time = get_time() - philo->data->start_time;
-	massage(WR_THINK, time, philo->i, philo->data->is_die);
+	massage(WR_THINK, time, philo->i);
 }
 
 void	*life(void	*arg)
