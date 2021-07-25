@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 22:30:55 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/24 18:52:41 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/25 19:49:18 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_init_set(t_settings *settings)
 	int	res;
 
 	res = 0;
-	if  (settings->number < 2 || settings->number > 200)
+	if (settings->number < 2 || settings->number > 200)
 		res++;
 	else if (settings->time_die < 60 || \
 			settings->time_eat < 60 || \
@@ -28,7 +28,7 @@ static int	check_init_set(t_settings *settings)
 
 t_settings	*init_settings(char **argv)
 {
-	int	flag;
+	int			flag;
 	t_settings	*settings;
 
 	settings = (t_settings *)malloc(sizeof(t_settings));
@@ -45,7 +45,7 @@ t_settings	*init_settings(char **argv)
 	settings->time_sleep = get_arg(argv[3], &flag);
 	settings->start_time = get_time();
 	pthread_mutex_init(&(settings->m_die), NULL);
-	pthread_mutex_init(&m_massage, NULL);
+	pthread_mutex_init(&g_m_massage, NULL);
 	if (argv[4])
 		settings->column_eat_for_die = get_arg(argv[4], &flag);
 	else
@@ -61,8 +61,8 @@ t_settings	*init_settings(char **argv)
 
 pthread_mutex_t	*init_mutex(int number)
 {
-	int	i;
-	pthread_mutex_t *mutex;
+	int				i;
+	pthread_mutex_t	*mutex;
 
 	mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * number);
 	if (!mutex)
@@ -82,7 +82,8 @@ t_pthread_philo	*init_philo(t_settings *settings, pthread_mutex_t *mutex)
 	long int		time;
 	t_pthread_philo	*philo;
 
-	philo = (t_pthread_philo *)malloc(sizeof(t_pthread_philo) * settings->number);
+	philo = (t_pthread_philo *)malloc(sizeof(t_pthread_philo) * \
+												settings->number);
 	if (!philo)
 	{
 		error("Error: malloc error\n");

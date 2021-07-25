@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 20:52:12 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/22 19:30:06 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/25 19:48:22 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	t_pthread_philo *philo;
+	t_pthread_philo	*philo;
 
 	philo = NULL;
 	if (argc != 5 && argc != 6)

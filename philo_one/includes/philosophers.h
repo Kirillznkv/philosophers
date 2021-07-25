@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:26:21 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/24 19:43:29 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/25 19:50:30 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define WR_THINK 7
 # define WR_DIE 13
 
-pthread_mutex_t			m_massage;
+pthread_mutex_t			g_m_massage;
 
 typedef struct s_settings
 {
@@ -48,7 +48,7 @@ typedef struct s_settings
 	int						column_eat_for_die;
 	long int				start_time;
 	pthread_mutex_t			m_die;
-} 							t_settings;
+}							t_settings;
 typedef struct s_pthread_philo
 {
 	int						i;
@@ -65,11 +65,11 @@ t_settings		*init_settings(char **argv);
 pthread_mutex_t	*init_mutex(int number);
 t_pthread_philo	*init_philo(t_settings *settings, pthread_mutex_t *mutex);
 /*--------------------------------Treads--------------------------------------*/
-void  		  	eating(t_pthread_philo *philo);
-void   			sleeping(t_pthread_philo *philo);
+void			eating(t_pthread_philo *philo);
+void			sleeping(t_pthread_philo *philo);
 void			thinking(t_pthread_philo *philo);
 void			*life(void	*arg);
-int 			go_treads(t_pthread_philo *philo);
+int				go_treads(t_pthread_philo *philo);
 /*--------------------------------Check_die-----------------------------------*/
 void			*check_die(void *arg);
 /*--------------------------------Utils---------------------------------------*/
@@ -79,13 +79,13 @@ int				ft_strlen(char *str);
 int				ft_atoi(char *str, char **flag);
 /*-------Philo_Utils--------*/
 int				is_need_eat(t_pthread_philo *philo);
-long int		get_time();
+long int		get_time(void);
 int				my_sleep(int sleep);
 int				all_free(t_pthread_philo *philo);
 int				get_arg(char *str, int *flag);
 /*-------Wait_tread---------*/
-void   			wait_eat(pthread_t *pd, int number);
-void   			wait_die(pthread_t *pd, t_pthread_philo *philo);
+void			wait_eat(pthread_t *pd, int number);
+void			wait_die(pthread_t *pd, t_pthread_philo *philo);
 /*-------Massages-----------*/
 void			massage(int mas, long int time, int i, int status_die);
 

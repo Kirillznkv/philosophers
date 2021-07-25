@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 17:24:53 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/25 19:39:04 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/25 19:49:35 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	massage(int mas, long int time, int i, int status_die)
 {
 	if (status_die)
 		return ;
-	pthread_mutex_lock(&m_massage);
+	pthread_mutex_lock(&g_m_massage);
 	if (mas == WR_LEFT_FORK_UP)
 		printf(YELLOW"%4ld: "RESET"%3d "GREEN"philo has taken a right fork\n" \
 																RESET, time, i);
@@ -38,5 +38,5 @@ void	massage(int mas, long int time, int i, int status_die)
 		 printf(RED"%4ld: %3d PHILO IS DIE\n", time, i);
 		 return ;
 	}
-	pthread_mutex_unlock(&m_massage);
+	pthread_mutex_unlock(&g_m_massage);
 }
