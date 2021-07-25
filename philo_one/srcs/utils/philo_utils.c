@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 22:28:04 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/24 19:16:14 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/25 19:40:56 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_need_eat(t_pthread_philo *philo)
 	return (res);
 }
 
-long int	get_time()
+long int	get_time(void)
 {
 	struct timeval	time;
 
@@ -57,7 +57,7 @@ int	all_free(t_pthread_philo *philo)
 	return (1);
 }
 
-int		get_arg(char *str, int *flag)
+int	get_arg(char *str, int *flag)
 {
 	char	*test;
 	int		i;
