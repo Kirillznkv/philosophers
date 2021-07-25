@@ -55,6 +55,7 @@ typedef struct s_pthread_philo
 	int						col_eat;
 	long int				limit;
 	pthread_t				p_check_die;
+	pthread_t				pd;
 	struct s_settings		*data;
 	pthread_mutex_t			*left;
 	pthread_mutex_t			*right;

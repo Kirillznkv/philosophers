@@ -69,6 +69,7 @@ void	*life(void	*arg)
 		sleeping(philo);
 		thinking(philo);
 	}
+	pthread_detach(philo->pd);
 	return (NULL);
 }
 
@@ -86,6 +87,7 @@ int	go_treads(t_pthread_philo *philo)
 	i = -1;
 	while (++i < number)
 	{
+		philo[i].pd = pd[i];
 		if (pthread_create(&(pd[i]), NULL, life, (void *)&(philo[i])))
 			return (error("Error: pthread_create error\n"));
 	}

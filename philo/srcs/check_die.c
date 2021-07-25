@@ -29,5 +29,6 @@ void	*check_die(void *arg)
 		}
 		pthread_mutex_unlock(&(philo->data->m_die));
 	}
+	pthread_detach(philo->p_check_die);
 	return (NULL);
 }
