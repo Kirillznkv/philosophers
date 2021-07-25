@@ -6,11 +6,11 @@
 #    By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/07 23:54:19 by kshanti           #+#    #+#              #
-#    Updated: 2021/07/24 19:43:52 by kshanti          ###   ########.fr        #
+#    Updated: 2021/07/25 20:55:08 by kshanti          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo_one
+NAME = philo
 
 HEAD = ./includes/philosophers.h
 SRCS=./srcs/
@@ -19,7 +19,7 @@ CFLAGS = -Wall -Wextra -Werror
 C_FILE =	$(SRCS)main.c $(SRCS)init.c $(SRCS)treads.c \
 			$(UTILS)base_utils.c $(UTILS)philo_utils.c \
 			$(UTILS)massages.c $(UTILS)wait_tread.c \
-			$(SRCS)check_die.c
+			$(SRCS)check_die.c $(UTILS)fuck_norm.c
 O_FILE = $(C_FILE:.c=.o)
 
 all:

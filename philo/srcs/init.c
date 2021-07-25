@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 22:30:55 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/25 19:49:18 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/25 20:54:53 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,8 @@ t_settings	*init_settings(char **argv)
 	settings->time_eat = get_arg(argv[2], &flag);
 	settings->time_sleep = get_arg(argv[3], &flag);
 	settings->start_time = get_time();
+	settings->column_eat_for_die = set_eat_arg(argv[4], &flag);
 	pthread_mutex_init(&(settings->m_die), NULL);
-	pthread_mutex_init(&g_m_massage, NULL);
-	if (argv[4])
-		settings->column_eat_for_die = get_arg(argv[4], &flag);
-	else
-		settings->column_eat_for_die = -1;
 	if (flag || check_init_set(settings))
 	{
 		free(settings);
@@ -73,6 +69,7 @@ pthread_mutex_t	*init_mutex(int number)
 	i = -1;
 	while (++i < number)
 		pthread_mutex_init(&(mutex[i]), NULL);
+	pthread_mutex_init(&g_m_massage, NULL);
 	return (mutex);
 }
 

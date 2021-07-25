@@ -6,7 +6,7 @@
 /*   By: kshanti <kshanti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 22:26:21 by kshanti           #+#    #+#             */
-/*   Updated: 2021/07/25 20:39:05 by kshanti          ###   ########.fr       */
+/*   Updated: 2021/07/25 20:51:01 by kshanti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,7 @@ void			wait_die(pthread_t *pd, t_pthread_philo *philo);
 void			left_fork_up(t_pthread_philo *philo);
 void			right_fork_up(t_pthread_philo *philo);
 void			massage(int mas, long int time, int i);
+/*-------Fuck_norm----------*/
+int				set_eat_arg(char *arg, int *flag);
 
 #endif
