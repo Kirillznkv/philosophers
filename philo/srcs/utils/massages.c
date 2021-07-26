@@ -33,10 +33,6 @@ void	massage(int mas, long int time, int i)
 	else if (mas == WR_RIGHT_FORK_UP)
 		printf(YELLOW"%4ld: "RESET"%3d "GREEN"philo has taken a left fork\n" \
 								RESET, time, i);
-	else if (mas == WR_LEFT_FORK_DOWN)
-		printf(YELLOW"%4ld: "RESET"%3d "RED"philo left fork down\n", time, i);
-	else if (mas == WR_RIGHT_FORK_DOWN)
-		printf(YELLOW"%4ld: "RESET"%3d "RED"philo right fork down\n", time, i);
 	else if (mas == WR_EAT)
 		printf(YELLOW"%4ld: "RESET"%3d "CYAN"philo eating\n", time, i);
 	else if (mas == WR_SLEEP)

@@ -33,9 +33,7 @@ void	eating(t_pthread_philo *philo)
 		(philo->col_eat)++;
 	my_sleep(philo->data->time_eat);
 	pthread_mutex_unlock(philo->right);
-	massage(WR_RIGHT_FORK_DOWN, get_time() - philo->data->start_time, philo->i);
 	pthread_mutex_unlock(philo->left);
-	massage(WR_LEFT_FORK_DOWN, get_time() - philo->data->start_time, philo->i);
 }
 
 void	sleeping(t_pthread_philo *philo)

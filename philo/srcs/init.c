@@ -17,7 +17,7 @@ static int	check_init_set(t_settings *settings)
 	int	res;
 
 	res = 0;
-	if (settings->number < 2 || settings->number > 200)
+	if (settings->number < 1 || settings->number > 200)
 		res++;
 	else if (settings->time_die < 60 || \
 			settings->time_eat < 60 || \

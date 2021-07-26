@@ -29,8 +29,6 @@
 
 # define WR_LEFT_FORK_UP 1
 # define WR_RIGHT_FORK_UP 2
-# define WR_LEFT_FORK_DOWN 3
-# define WR_RIGHT_FORK_DOWN 4
 # define WR_EAT 5
 # define WR_SLEEP 6
 # define WR_THINK 7
